@@ -32,29 +32,35 @@ export default function Page(): JSX.Element {
   }, [medplum, profile]);
 
   const handleOnSubmit = useCallback(
-    (response: QuestionnaireResponse) => {
+    async (response: QuestionnaireResponse) => {
       if (!questionnaire || !profile) {
         return;
       }
 
-      medplum
-        .createResource<QuestionnaireResponse>({
+      try {
+        // Create the questionnaire response
+        const createdResponse = await medplum.createResource<QuestionnaireResponse>({
           ...response,
           author: createReference(profile),
-        })
-        .then(() => {
-          showNotification({
-            title: 'Success',
-            message: 'Answers recorded',
-          });
-        })
-        .catch((err) => {
-          showNotification({
-            color: 'red',
-            title: 'Error',
-            message: normalizeErrorString(err),
-          });
         });
+
+        console.log('Created response:', createdResponse);
+        
+        showNotification({
+          title: 'Success',
+          message: 'Patient intake form submitted',
+        });
+
+        // Navigate to the patients list
+        router.push('/scheduling/patients');
+      } catch (err) {
+        console.error('Error:', err);
+        showNotification({
+          color: 'red',
+          title: 'Error',
+          message: normalizeErrorString(err),
+        });
+      }
     },
     [medplum, router, questionnaire, profile]
   );
