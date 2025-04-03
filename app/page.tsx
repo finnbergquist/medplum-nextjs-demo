@@ -31,6 +31,9 @@ export default function HomePage(): JSX.Element {
           <Button onClick={() => router.push('/patientintake')} style={{ marginLeft: '10px' }}>
             Patient Intake Form
           </Button>
+          <Button onClick={() => router.push('/scheduling')} style={{ marginLeft: '10px' }}>
+            Scheduling Components
+          </Button>
         </Suspense>
       )}
     </Container>

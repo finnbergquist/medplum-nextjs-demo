@@ -1,14 +1,14 @@
 import { formatSearchQuery, Operator, SearchRequest } from '@medplum/core';
 import { Patient } from '@medplum/fhirtypes';
 import { SearchControl } from '@medplum/react';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 
 interface PatientObservationsProps {
   patient: Patient;
 }
 
 export function PatientObservations(props: PatientObservationsProps): JSX.Element {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const search: SearchRequest = {
     resourceType: 'Observation',
@@ -24,9 +24,9 @@ export function PatientObservations(props: PatientObservationsProps): JSX.Elemen
       search={search}
       hideFilters={true}
       hideToolbar={true}
-      onClick={(e) => navigate(`/${e.resource.resourceType}/${e.resource.id}`)?.catch(console.error)}
+      onClick={(e) => router.push(`/${e.resource.resourceType.toLowerCase()}/${e.resource.id}`)}
       onChange={(e) => {
-        navigate(`/${search.resourceType}${formatSearchQuery(e.definition)}`)?.catch(console.error);
+        router.push(`/${search.resourceType.toLowerCase()}${formatSearchQuery(e.definition)}`);
       }}
     />
   );

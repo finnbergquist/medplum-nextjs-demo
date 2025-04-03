@@ -26,8 +26,11 @@
     "@medplum/core": "4.0.4",
     "@medplum/react": "4.0.4",
     "@next/bundle-analyzer": "15.2.3",
+    "@tabler/icons-react": "^3.31.0",
+    "@types/react-big-calendar": "^1.16.1",
     "next": "15.2.3",
     "react": "18.2.0",
+    "react-big-calendar": "^1.18.0",
     "react-dom": "18.2.0",
     "rfc6902": "5.1.2"
   },
